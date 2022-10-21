@@ -1,5 +1,5 @@
 #include <iostream>
-#include <base.h>
+#include <math/base.h>
 
 int main(){
     my::Vector3 v = my::Vector3(1,2,3);
