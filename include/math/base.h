@@ -1,7 +1,7 @@
 #include <cmath>
 #include <cstddef>
 
-#include <precision.h>
+#include <math/precision.h>
 
 namespace my{
     class Vector3{
@@ -12,12 +12,6 @@ namespace my{
         public:
             Vector3(): x(0), y(0), z(0) {}
             Vector3(const real x , const real y, const real z) : x(x), y(y), z(z) {}
-            
-            void invert(){
-                x = -x;
-                y = -y;
-                z = -z;
-            }
 
             void operator+=(const Vector3& v){
                 x += v.x;
@@ -108,6 +102,16 @@ namespace my{
                 Vector3 result = *this;
                 result.normalize();
                 return result;
+            }
+
+            void invert(){
+                x = -x;
+                y = -y;
+                z = -z;
+            }
+            
+            void clear(){
+                x = y = z = 0
             }
     };
 }
