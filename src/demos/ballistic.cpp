@@ -45,7 +45,7 @@ class BallisticDemo : public Application{
     ShotType currentShotType;
 
     void fire(){
-        AmmoRound *shot;
+        AmmoRound* shot;
         for (shot = ammo; shot < ammo+ammoRounds; shot++)
         {
             if (shot->type == UNUSED) break;
@@ -99,7 +99,7 @@ class BallisticDemo : public Application{
 
 public:
     BallisticDemo():currentShotType(LASER){
-        for (AmmoRound* shot = ammo; shot < ammo + ammoRounds; shot++){
+        for (auto shot = ammo; shot < ammo + ammoRounds; shot++){
             shot->type = UNUSED;
         }
     }
@@ -125,7 +125,7 @@ public:
         float duration = (float)TimingData::get().lastFrameDuration * 0.001f;
         if (duration <= 0.0f) return;
 
-        for (AmmoRound* shot = ammo; shot < ammo + ammoRounds; shot++){
+        for (auto shot = ammo; shot < ammo + ammoRounds; shot++){
             if (shot->type != UNUSED){
                 shot->particle.integrate(duration);
 
@@ -140,7 +140,7 @@ public:
         Application::update();
     }    
 
-    void display(){
+    virtual void display(){
             // Clear the viewport and set the camera direction
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glLoadIdentity();
@@ -169,7 +169,7 @@ public:
         glEnd();
     
         // Render each particle in turn
-        for (AmmoRound *shot = ammo; shot < ammo+ammoRounds; shot++)
+        for (auto shot = ammo; shot < ammo+ammoRounds; shot++)
         {
             if (shot->type != UNUSED)
             {
@@ -192,7 +192,7 @@ public:
     }
 };
 
-Application* getApplication()
+auto getApplication()
 {
     return new BallisticDemo();
 }
