@@ -1,3 +1,6 @@
+#ifndef MY_PARTICLE_H
+#define MY_PARTICLE_H
+
 #include <assert.h>
 
 #include <math/base.h>
@@ -12,7 +15,7 @@ namespace my{
             Vector3 velocity;
             Vector3 acceleration;
             Vector3 forceAccum;
-            real dampling;
+            real damping;
             real inverseMass;
         
         public:
@@ -22,8 +25,8 @@ namespace my{
                 inverseMass = ((real)1)/mass;                
             }
 
-            void setDampling(const real damp){
-                dampling = damp;
+            void setDamping(const real damp){
+                damping = damp;
             }
 
             void setPosition(const Vector3& posi){
@@ -78,7 +81,17 @@ namespace my{
                 Vector3 resultAcc = acceleration;
                 resultAcc.addScaledVector(forceAccum, inverseMass);
                 velocity.addScaledVector(resultAcc, duration);
-                velocity *= real_pow(dampling, duration);
+                velocity *= real_pow(damping, duration);
+            }
+
+            void getPositon(Vector3* pposi) const{
+                *pposi = position;
+            }
+
+            Vector3 getPositon() const{
+                return position;
             }
     };
 }
+
+#endif

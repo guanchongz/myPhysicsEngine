@@ -1,3 +1,6 @@
+#ifndef MY_MATH_PRECISON_H
+#define MY_MATH_PRECISON_H
+
 #include <float.h>
 
 namespace my{
@@ -13,3 +16,5 @@ namespace my{
     #define REAL_MAX FLT_MAX
     #define REAL_PI 3.14159f
 }
+
+#endif

@@ -1,3 +1,6 @@
+#ifndef MY_MATH_BASE_H
+#define MY_MATH_BASE_H
+
 #include <cmath>
 #include <cstddef>
 
@@ -111,7 +114,9 @@ namespace my{
             }
             
             void clear(){
-                x = y = z = 0
+                x = y = z = 0;
             }
     };
 }
+
+#endif
