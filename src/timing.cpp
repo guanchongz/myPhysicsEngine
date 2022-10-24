@@ -1,6 +1,6 @@
 #include <module/timing.h>
 
-static TimingData *timingData = NULL;
+static TimingData* timingData = nullptr;
 
 TimingData& TimingData::get()
 {
@@ -75,5 +75,5 @@ void TimingData::init() {
 void TimingData::deinit()
 {
         delete timingData;
-        timingData = NULL;
+        timingData = nullptr;
 }

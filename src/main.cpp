@@ -1,3 +1,4 @@
+#include <memory>
 #include <gl/glut.h>
 
 #include <module/app.h>
@@ -6,10 +7,10 @@
 // Forward declaration of the function that will return the
 // application object for this particular demo. This should be
 // implemented in the demo's .cpp file.
-extern Application* getApplication();
+extern std::shared_ptr<Application> getApplication();
 
 // Store the global application object.
-Application* app;
+std::shared_ptr<Application> app;
 
 /**
  * Creates a window in which to display the scene.
@@ -109,6 +110,5 @@ int main(int argc, char** argv)
 
     // Clean up the application
     app->deinit();
-    delete app;
     TimingData::deinit();
 }

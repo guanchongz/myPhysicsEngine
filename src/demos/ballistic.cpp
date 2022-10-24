@@ -1,3 +1,4 @@
+#include <memory>
 #include <gl/glut.h>
 
 #include <module/app.h>
@@ -104,7 +105,7 @@ public:
         }
     }
 
-    virtual const char* getTitle(){
+    virtual constexpr const char* getTitle(){
         return "Ballistic Demo";
     }
 
@@ -161,7 +162,7 @@ public:
         // Draw some scale lines
         glColor3f(0.75f, 0.75f, 0.75f);
         glBegin(GL_LINES);
-        for (unsigned i = 0; i < 200; i += 10)
+        for (std::size_t i = 0; i < 200; i += 10)
         {
             glVertex3f(-5.0f, 0.0f, i);
             glVertex3f(5.0f, 0.0f, i);
@@ -194,5 +195,5 @@ public:
 
 auto getApplication()
 {
-    return new BallisticDemo();
+    return std::make_shared<BallisticDemo>();
 }

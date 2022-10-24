@@ -23,7 +23,7 @@ struct TimingData {
 
 	TimingData(){};
 	TimingData(const TimingData& t){};
-	TimingData& operator= (const TimingData& t){};
+	//TimingData& operator= (const TimingData& t){};
 
 };
 
