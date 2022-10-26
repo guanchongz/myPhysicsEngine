@@ -3,8 +3,7 @@
 
 #include <assert.h>
 
-#include <math/base.h>
-#include <math/precision.h>
+#include <my.h>
 
 namespace my{
     class Particle{

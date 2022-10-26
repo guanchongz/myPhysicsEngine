@@ -1,8 +1,7 @@
 #include <memory>
-#include <gl/glut.h>
 
-#include <module/app.h>
-#include <module/timing.h>
+#include <gl/glut.h>
+#include <my.h>
 
 // Forward declaration of the function that will return the
 // application object for this particular demo. This should be

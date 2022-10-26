@@ -1,7 +1,6 @@
 #include <cstring>
 #include <gl/glut.h>
-#include <module/timing.h>
-#include <module/app.h>
+#include <my.h>
 
 void Application::initGraphics()
 {

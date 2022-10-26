@@ -1,9 +1,7 @@
 #include <memory>
-#include <gl/glut.h>
 
-#include <module/app.h>
-#include <structre/particle.h>
-#include <module/timing.h>
+#include <gl/glut.h>
+#include <my.h>
 
 using namespace my;
 

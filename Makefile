@@ -1,6 +1,6 @@
 .PHONY:test
 
-LDFLAGS=-I include/ -I src/ -lGL -lglut -lGLU -L./Debug -std=c++20
+LDFLAGS=-I include/ -I src/ -lGL -lglut -lGLU -L./Debug -std=c++20 
 CXX=clang++
 
 DEMOS=ballistic bigballistic blob bridge explosion fireworks flightsim fracture platform ragdoll sailboat
