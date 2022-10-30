@@ -9,7 +9,7 @@ include_directories(src/ include/)
 link_directories(/usr/lib/x86_64-linux-gnu/)
 
 add_library(lib STATIC src/app.cpp src/timing.cpp )
-add_library(target STATIC src/demos/ballistic.cpp)
+add_library(target STATIC src/demos/fireworks.cpp)
 
 find_package(OpenGL REQUIRED COMPONENTS OpenGL)
 include_directories(${OpenGL_INCLUDE_DIR})

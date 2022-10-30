@@ -1,9 +1,9 @@
 #ifndef MY_PARTICLE_H
 #define MY_PARTICLE_H
 
+#include "math/base.h"
 #include <assert.h>
 
-#include <my.h>
 
 namespace my{
     class Particle{
@@ -73,7 +73,7 @@ namespace my{
             }
 
 
-            void integrate(real duration){
+            void integrate(real &duration){
                 assert(duration > 0.0);
 
                 position.addScaledVector(velocity, duration);
@@ -83,12 +83,26 @@ namespace my{
                 velocity *= real_pow(damping, duration);
             }
 
-            void getPositon(Vector3* pposi) const{
+            void getPosition(Vector3* pposi) const{
                 *pposi = position;
             }
 
-            Vector3 getPositon() const{
+            Vector3 getPosition() const{
                 return position;
+            }
+
+            void getVelocity(Vector3* pvelo) const{
+                *pvelo = velocity;
+            }
+
+            Vector3 getVelocity() const{
+                return velocity;
+            }
+
+            void addVelocity(Vector3 &&velo){
+                velocity.x += velo.x;
+                velocity.y += velo.y;
+                velocity.z += velo.z;
             }
     };
 }

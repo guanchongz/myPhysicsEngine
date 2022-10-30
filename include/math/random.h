@@ -1,9 +1,11 @@
-#ifndef MY_RANDOM_H
-#define MY_RANDOM_H
+#ifndef MY_MATH_RANDOM_H
+#define MY_MATH_RANDOM_H
 
+#include "math/base.h"
+#include "math/precision.h"
 #include <ctime>
+#include <random>
 
-#include <my.h>
 
 namespace my{
     class Random{
@@ -97,7 +99,7 @@ namespace my{
         /**
          * Returns a random orientation (i.e. normalized) quaternion.
          */
-        Quaternion randomQuaternion();
+        //Quaternion randomQuaternion();
 
     private:
         // Internal mechanics
@@ -105,21 +107,18 @@ namespace my{
         unsigned buffer[17];
     };
 
-}
 
-using namespace my;
-
-Random::Random()
+inline Random::Random()
 {
     seed(0);
 }
 
-Random::Random(unsigned seed)
+inline Random::Random(unsigned seed)
 {
     Random::seed(seed);
 }
 
-void Random::seed(unsigned s)
+inline void Random::seed(unsigned s)
 {
     if (s == 0) {
         s = (unsigned)clock();
@@ -137,19 +136,19 @@ void Random::seed(unsigned s)
     p1 = 0;  p2 = 10;
 }
 
-unsigned Random::rotl(unsigned n, unsigned r)
+inline unsigned Random::rotl(unsigned n, unsigned r)
 {
 	  return	(n << r) |
 			  (n >> (32 - r));
 }
 
-unsigned Random::rotr(unsigned n, unsigned r)
+inline unsigned Random::rotr(unsigned n, unsigned r)
 {
 	  return	(n >> r) |
 				(n << (32 - r));
 }
 
-unsigned Random::randomBits()
+inline unsigned Random::randomBits()
 {
     unsigned result;
 
@@ -164,49 +163,34 @@ unsigned Random::randomBits()
     return result;
 }
 
-real Random::randomReal()
+inline real Random::randomReal()
 {
-    // Get the random number
-    unsigned bits = randomBits();
-
-    // Set up a reinterpret structure for manipulation
-    union {
-        real value;
-        unsigned words[2];
-    } convert;
-
-    // Now assign the bits to the words. This works by fixing the ieee
-    // sign and exponent bits (so that the size of the result is 1-2)
-    // and using the bits to create the fraction part of the float. Note
-    // that bits are used more than once in this process.
-    convert.words[0] =  bits << 20; // Fill in the top 16 bits
-    convert.words[1] = (bits >> 12) | 0x3FF00000; // And the bottom 20
-
-    // And return the value
-    return convert.value - 1.0;
+    std::mt19937_64 eng{std::random_device{}()};
+    std::uniform_real_distribution<real> dis(0,1);
+    return dis(eng);
 }
-#endif
 
-real Random::randomReal(real min, real max)
+inline real Random::randomReal(real min, real max)
 {
     return randomReal() * (max-min) + min;
 }
 
-real Random::randomReal(real scale)
+inline real Random::randomReal(real scale)
 {
     return randomReal() * scale;
 }
 
-unsigned Random::randomInt(unsigned max)
+inline unsigned Random::randomInt(unsigned max)
 {
     return randomBits() % max;
 }
 
-real Random::randomBinomial(real scale)
+inline real Random::randomBinomial(real scale)
 {
     return (randomReal()-randomReal())*scale;
 }
 
+/*
 Quaternion Random::randomQuaternion()
 {
     Quaternion q(
@@ -218,8 +202,9 @@ Quaternion Random::randomQuaternion()
     q.normalise();
     return q;
 }
+*/
 
-Vector3 Random::randomVector(real scale)
+inline Vector3 Random::randomVector(real scale)
 {
     return Vector3(
         randomBinomial(scale),
@@ -228,7 +213,7 @@ Vector3 Random::randomVector(real scale)
         );
 }
 
-Vector3 Random::randomXZVector(real scale)
+inline Vector3 Random::randomXZVector(real scale)
 {
     return Vector3(
         randomBinomial(scale),
@@ -237,7 +222,7 @@ Vector3 Random::randomXZVector(real scale)
         );
 }
 
-Vector3 Random::randomVector(const Vector3 &scale)
+inline Vector3 Random::randomVector(const Vector3 &scale)
 {
     return Vector3(
         randomBinomial(scale.x),
@@ -246,13 +231,15 @@ Vector3 Random::randomVector(const Vector3 &scale)
         );
 }
 
-Vector3 Random::randomVector(const Vector3 &min, const Vector3 &max)
+inline Vector3 Random::randomVector(const Vector3 &min, const Vector3 &max)
 {
     return Vector3(
         randomReal(min.x, max.x),
         randomReal(min.y, max.y),
         randomReal(min.z, max.z)
         );
+}
+
 }
 
 #endif
