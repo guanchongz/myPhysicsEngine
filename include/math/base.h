@@ -14,6 +14,11 @@ namespace my{
             real z;
         public:
             Vector3(): x(0), y(0), z(0) {}
+            Vector3(const Vector3 &vector){
+                x = vector.x;
+                y = vector.y;
+                z = vector.z;
+            }
             Vector3(const real x , const real y, const real z) : x(x), y(y), z(z) {}
 
             void operator+=(const Vector3& v){

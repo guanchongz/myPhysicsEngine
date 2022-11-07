@@ -2,20 +2,19 @@
 #define MY_PARTICLE_H
 
 #include "math/base.h"
+#include "math/precision.h"
 #include <assert.h>
 
 
 namespace my{
     class Particle{
-        public:
-
         protected:
             Vector3 position;
             Vector3 velocity;
             Vector3 acceleration;
             Vector3 forceAccum;
-            real damping;
-            real inverseMass;
+            real damping = 0.0f;
+            real inverseMass = 0.0f;
         
         public:
 
@@ -81,6 +80,8 @@ namespace my{
                 resultAcc.addScaledVector(forceAccum, inverseMass);
                 velocity.addScaledVector(resultAcc, duration);
                 velocity *= real_pow(damping, duration);
+
+                clearAccumulator();
             }
 
             void getPosition(Vector3* pposi) const{
@@ -99,10 +100,28 @@ namespace my{
                 return velocity;
             }
 
-            void addVelocity(Vector3 &&velo){
-                velocity.x += velo.x;
-                velocity.y += velo.y;
-                velocity.z += velo.z;
+            void addVelocity(Vector3 &velo){
+                velocity += velo;
+            }
+
+            void addForce(const Vector3 &force){
+                forceAccum += force;
+            }
+
+            bool hasFiniteMass() const{
+                return inverseMass > 0.0f;
+            }
+
+            real getInverseMass() const{
+                return inverseMass;
+            }
+
+            real getMass() const{
+                if (inverseMass > 0.0f){
+                    return (real)1.0 / inverseMass;
+                }else{
+                    return REAL_MAX;
+                }
             }
     };
 }

@@ -4,3 +4,4 @@
 #include <module/timing.h>
 #include <structre/particle.h>
 #include <math/random.h>
+#include <structre/particle_force.h>
