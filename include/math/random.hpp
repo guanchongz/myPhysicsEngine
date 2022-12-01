@@ -1,8 +1,8 @@
 #ifndef MY_MATH_RANDOM_H
 #define MY_MATH_RANDOM_H
 
-#include "math/base.h"
-#include "math/precision.h"
+#include "math/base.hpp"
+#include "math/precision.hpp"
 #include <ctime>
 #include <random>
 

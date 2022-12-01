@@ -1,8 +1,8 @@
 #ifndef MY_PARTICLE_H
 #define MY_PARTICLE_H
 
-#include "math/base.h"
-#include "math/precision.h"
+#include "math/base.hpp"
+#include "math/precision.hpp"
 #include <assert.h>
 
 

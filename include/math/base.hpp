@@ -4,7 +4,7 @@
 #include <cmath>
 #include <cstddef>
 
-#include <math/precision.h>
+#include <math/precision.hpp>
 
 namespace my{
     class Vector3{

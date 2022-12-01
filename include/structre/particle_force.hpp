@@ -1,7 +1,6 @@
 #pragma once
 
-#include "math/base.h"
-#include "structre/particle.h"
+#include "structre/particle.hpp"
 #include <memory>
 #include <my.h>
 #include <vector>

@@ -1,7 +1,6 @@
-#include <math/base.h>
-#include <math/precision.h>
+#include <math/base.hpp>
+#include <math/precision.hpp>
+#include <math/random.hpp>
 #include <module/app.h>
 #include <module/timing.h>
-#include <structre/particle.h>
-#include <math/random.h>
-#include <structre/particle_force.h>
+#include <structre/particle.hpp>
