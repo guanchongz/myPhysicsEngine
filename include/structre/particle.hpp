@@ -100,6 +100,14 @@ namespace my{
                 return velocity;
             }
 
+            void getAcceleration(Vector3* pacc) const{
+                *pacc = acceleration;
+            }
+
+            Vector3 getAcceleration() const{
+                return acceleration;
+            }
+
             void addVelocity(Vector3 &velo){
                 velocity += velo;
             }

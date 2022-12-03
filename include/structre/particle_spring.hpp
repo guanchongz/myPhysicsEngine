@@ -64,7 +64,7 @@ class ParticleRealSpring : public ParticleForceGenerator{
     real damping;
 
     public:
-    ParticleRealSpring(std::shared_ptr<Particle> anchor, real springConstant, real damping) : anchor(anchor), springConstant(springConstant), damping(damping) {}
+    ParticleRealSpring(std::shared_ptr<Vector3> anchor, real springConstant, real damping) : anchor(anchor), springConstant(springConstant), damping(damping) {}
     virtual void updateForce(std::shared_ptr<Particle> particle, real duration){
         if (!particle->hasFiniteMass()) return;
 
