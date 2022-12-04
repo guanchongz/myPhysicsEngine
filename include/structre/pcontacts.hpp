@@ -5,6 +5,7 @@
 #include "structre/particle.hpp"
 #include <memory>
 #include <my.h>
+#include <vector>
 
 namespace my {
 class ParticleContactResolver;
@@ -12,10 +13,10 @@ class ParticleContact{
     friend class ParticleContactResolver;
 
     public:
-    std::shared_ptr<Particle> particle[2];
     real restitution;
-    Vector3 contactNormal;
     real penetration;
+    Vector3 contactNormal;
+    std::shared_ptr<Particle> particle[2];
 
     protected:
     void resolve(real duration){
@@ -87,24 +88,53 @@ class ParticleContactResolver{
         ParticleContactResolver::iterations = iterations;
     }
 
-    void resolveContacts(std::shared_ptr<ParticleContact[]> contactArray, unsigned numContacts, real duration){
+    void resolveContacts(std::vector<std::shared_ptr<ParticleContact>> contactArray, real duration){
         unsigned i;
         iterationsUsed = 0;
         while(iterationsUsed < iterations){
             auto max = REAL_MAX;
-            auto maxIndex = numContacts;
-            for (unsigned i = 0; i < numContacts; i++){
-                real sepVel = contactArray[i].calculateSeparatingVelocity();
+            auto maxIndex = contactArray.size();
+            for (auto contact : contactArray){
+                real sepVel = contact->calculateSeparatingVelocity();
                 if (sepVel < max){
                     max = sepVel;
                     maxIndex = i;
                 }
             }
-            contactArray[maxIndex].resolve(duration);
+            contactArray[maxIndex]->resolve(duration);
             iterationsUsed ++;
         }
     }
 
 };
 
+class ParticleContactGenerator{
+    public:
+    virtual void addContact(std::vector<std::shared_ptr<ParticleContact>> contacts) const = 0;
+};
+
+class GroundContacts : public ParticleContactGenerator{
+    std::vector<std::shared_ptr<Particle>> particles;
+
+    public:
+    void init(std::vector<std::shared_ptr<Particle>> particles) {
+        particles = particles;
+    }
+
+    virtual void addContact(std::vector<std::shared_ptr<ParticleContact>> contacts){
+        for(auto particle : particles){
+            auto y = particle->getPosition().y;
+            if (y < 0.0f){
+                auto contact = std::make_shared<ParticleContact> ();
+                contact->contactNormal = UP;
+                contact->particle[0] = particle;
+                contact->particle[1] = nullptr;
+                contact->penetration = -y;
+                contact->restitution = 0.2f;
+                contacts.push_back(contact);
+            }
+            if (contacts.size() == contacts.capacity()) break;
+        }
+    }
+};
 }
