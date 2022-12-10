@@ -28,7 +28,9 @@ namespace my{
             }
 
             void setPosition(const Vector3& posi){
-                position = posi;
+                position.x = posi.x;
+                position.y = posi.y;
+                position.z = posi.z;
             }
 
             void setPosition(const real& x, const real& y, const real& z){
@@ -38,7 +40,9 @@ namespace my{
             }
 
             void setVelocity(const Vector3& velo){
-                velocity = velo;
+                velocity.x = velo.x;
+                velocity.y = velo.y;
+                velocity.z = velo.z;
             }
 
             void setVelocity(const real& x, const real& y, const real& z){

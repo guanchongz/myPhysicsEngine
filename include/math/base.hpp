@@ -121,6 +121,15 @@ namespace my{
             void clear(){
                 x = y = z = 0;
             }
+
+            void trim(real size){
+                if (squareMagnitude() > size){
+                    normalize();
+                    x *= size;
+                    y *= size;
+                    z *= size;
+                }
+            }
     };
 
     const Vector3 GRAVITY = Vector3(0, -9.81, 0);

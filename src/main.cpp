@@ -17,7 +17,7 @@ std::shared_ptr<Application> app;
 void createWindow(const char* title)
 {
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
-    glutInitWindowSize(1920,1080);
+    glutInitWindowSize(1080,720);
     glutInitWindowPosition(0,0);
     glutCreateWindow(title);
 }

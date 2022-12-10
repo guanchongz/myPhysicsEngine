@@ -32,12 +32,12 @@ class ParticleWorld{
     }
 
     unsigned generateContacts(){
-        unsigned limit = maxContacts;
+        auto cur_size = contacts.size();
         for (auto contact_generator : contactGenerators){
             contact_generator->addContact(contacts);
             if (contacts.size() == contacts.capacity()) break;
         }
-        return maxContacts - limit;
+        return contacts.size() - cur_size;
     }
 
     void integrate(real duration){
@@ -54,18 +54,19 @@ class ParticleWorld{
             if (calculateIterations) resolver.setIterations(used_contacts * 2);
             resolver.resolveContacts(contacts, duration);
         }
+        contacts.clear();
     }
 
     auto getParticles(){
-        return particles;
+        return &particles;
     }
 
     auto getContactGenerators(){
-        return contactGenerators;
+        return &contactGenerators;
     }
 
     auto getForceRegistry(){
-        return registry;
+        return &registry;
     }
 
 };

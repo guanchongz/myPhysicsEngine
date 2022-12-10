@@ -69,7 +69,7 @@ class ParticleContact{
 
         if (totalInverseMass <= 0) return;
 
-        Vector3 movePerIMass = contactNormal * (-penetration / totalInverseMass);
+        Vector3 movePerIMass = contactNormal * (penetration / totalInverseMass);
         particle[0]->setPosition(particle[0]->getPosition() + movePerIMass * particle[0]->getInverseMass());
         if (particle[1]){
             particle[1]->setPosition(particle[1]->getPosition() - movePerIMass * particle[1]->getInverseMass());
@@ -88,14 +88,14 @@ class ParticleContactResolver{
         ParticleContactResolver::iterations = iterations;
     }
 
-    void resolveContacts(std::vector<std::shared_ptr<ParticleContact>> contactArray, real duration){
-        unsigned i;
+    void resolveContacts(std::vector<std::shared_ptr<ParticleContact>> &contactArray, real duration){
         iterationsUsed = 0;
         while(iterationsUsed < iterations){
             auto max = REAL_MAX;
             auto maxIndex = contactArray.size();
-            for (auto contact : contactArray){
-                real sepVel = contact->calculateSeparatingVelocity();
+            auto length = contactArray.size();
+            for (auto i = 0; i< length; i++){
+                real sepVel = contactArray[i]->calculateSeparatingVelocity();
                 if (sepVel < max){
                     max = sepVel;
                     maxIndex = i;
@@ -110,18 +110,18 @@ class ParticleContactResolver{
 
 class ParticleContactGenerator{
     public:
-    virtual void addContact(std::vector<std::shared_ptr<ParticleContact>> contacts) const = 0;
+    virtual void addContact(std::vector<std::shared_ptr<ParticleContact>> &contacts) = 0;
 };
 
 class GroundContacts : public ParticleContactGenerator{
     std::vector<std::shared_ptr<Particle>> particles;
 
     public:
-    void init(std::vector<std::shared_ptr<Particle>> particles) {
+    void init(std::vector<std::shared_ptr<Particle>> &particles) {
         particles = particles;
     }
 
-    virtual void addContact(std::vector<std::shared_ptr<ParticleContact>> contacts){
+    virtual void addContact(std::vector<std::shared_ptr<ParticleContact>> &contacts){
         for(auto particle : particles){
             auto y = particle->getPosition().y;
             if (y < 0.0f){
